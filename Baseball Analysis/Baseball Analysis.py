@@ -50,6 +50,7 @@ modern = modern.groupby(['playerID'], as_index = False).sum()
 modern = modern.drop(columns = ['yearID'])
 
 ## Calculate addition baseball stats
+
 modern['AVG'] = round((modern['H'] / modern['AB']),3)
 modern['TB'] = ((modern['2B']*2) + (modern['3B']*3) + (modern['HR']*4) + (modern['H'] - modern['HR'] - modern['3B'] - modern['2B']))
 modern['OBP'] = round((modern['H'] + modern['BB'] + modern['HBP']) / (modern['AB'] + modern['BB'] + modern['HBP'] + modern['SF']), 3)
@@ -76,59 +77,117 @@ from bokeh.layouts import row,column,gridplot,widgetbox
 from bokeh.models.widgets import Tabs,Panel,DataTable, DateFormatter, TableColumn,NumberFormatter,Select
 from bokeh.models import NumeralTickFormatter
 
-
-
-
-
 output_notebook()
 
-
-
-
-top_steroid = steroid.sort_values(['HR'], ascending=False)
+top_steroid = steroid.sort_values(['R'], ascending=False)
 top_steroid = top_steroid.head(100)
 
 
 ## Set Up Data Sources
 source = ColumnDataSource(top_steroid)
 
-
 hover = HoverTool(
             tooltips = [
                 ('Year', '@{yearID}'),
                 ('Player','@{playerID}'),
-                ('AVG', '@{AVG}{0,0}'),
+                ('AVG', '@{AVG}{0.03f}'),
                 ('HR', '@{HR}{0,0}'),
-                ('RBI', '@{RBI}{0,0}'),
-                ('OBP', '@{OBP}{0,0}'),
-                ('SLG', '@{SLG}{0,0}'),
-                ('OPS', '@{HR}{0.03}'),
+                ('Runs', '@{R}{0,0}'),
+                ('OBP', '@{OBP}{0.03f}'),
+                ('SLG', '@{SLG}{0.03f}'),
+                ('OPS', '@{OPS}{0.03f}'),
                 ])
-
-
-
-
 
 # Set Up Plots
 
-### Monthly Sales (last 12 months)
-plot = figure(plot_width = 900, plot_height = 500, tools = [hover, 'box_zoom', 'pan','reset'], active_drag = 'box_zoom',x_axis_type = 'datetime', title = 'Monthly Sales Last 12 Months')
-plot.line(x = 'HR', y = 'RBI', source=source)
+### Bokeh
+plot = figure(plot_width = 800, plot_height = 500, tools = [hover, 'box_zoom', 'pan','reset'], active_drag = 'box_zoom', title = 'Top Power Hitters (1990-2003)')
+plot.circle(x = 'HR', y = 'R', size = 7, source=source)
 
 plot.title.align = 'center'
 plot.title.text_font_size = '20pt'
-plot.yaxis[0].formatter = NumeralTickFormatter(format="0,0")
 
-plot.xaxis.axis_label = 'Year'
+plot.xaxis.axis_label = 'Home Runs'
 plot.xaxis.axis_label_standoff = 20
 plot.xaxis.axis_label_text_font_style = 'normal'
 plot.xaxis.axis_label_text_font_size = '12pt'
 
 
-plot.yaxis.axis_label = 'Units Sold'
+plot.yaxis.axis_label = 'Runs'
 plot.yaxis.axis_label_standoff = 20
 plot.yaxis.axis_label_text_font_style = 'normal'
 plot.yaxis.axis_label_text_font_size = '12pt'
+
+show(plot);
+
+
+
+### Matplotlib plot
+import matplotlib.pyplot as plt
+
+top_steroid.plot(kind = 'scatter', x = 'HR', y = 'R', s= 50, alpha = 1, figsize = (12,8))
+plt.plot(x = 'HR', y = 125)
+plt.title('Top Power Hitters (1990-2003)', size = 25)
+plt.xlabel('Home Runs', size = 15)
+plt.ylabel('Runs', size = 15)
+plt.show();
+
+
+
+
+
+top_modern = modern.sort_values(['R'], ascending=False)
+top_modern = top_modern.head(100)
+
+
+## Set Up Data Sources
+source1 = ColumnDataSource(top_modern)
+
+hover1 = HoverTool(
+            tooltips = [
+                ('Year', '@{yearID}'),
+                ('Player','@{playerID}'),
+                ('AVG', '@{AVG}{0.03f}'),
+                ('HR', '@{HR}{0,0}'),
+                ('Runs', '@{R}{0,0}'),
+                ('OBP', '@{OBP}{0.03f}'),
+                ('SLG', '@{SLG}{0.03f}'),
+                ('OPS', '@{OPS}{0.03f}'),
+                ])
+
+# Set Up Plots
+
+### Bokeh
+plot1 = figure(plot_width = 800, plot_height = 500, tools = [hover1, 'box_zoom', 'pan','reset'], active_drag = 'box_zoom', title = 'Top Power Hitters (2004-2016)')
+plot1.circle(x = 'HR', y = 'R', size = 7, source=source1)
+
+plot1.title.align = 'center'
+plot1.title.text_font_size = '20pt'
+
+plot1.xaxis.axis_label = 'Home Runs'
+plot1.xaxis.axis_label_standoff = 20
+plot1.xaxis.axis_label_text_font_style = 'normal'
+plot1.xaxis.axis_label_text_font_size = '12pt'
+
+
+plot1.yaxis.axis_label = 'Runs'
+plot1.yaxis.axis_label_standoff = 20
+plot1.yaxis.axis_label_text_font_style = 'normal'
+plot1.yaxis.axis_label_text_font_size = '12pt'
+
+show(plot1);
+
+
+
+
+
+
+
+top_modern.plot(kind = 'scatter', x = 'HR', y = 'R', s= 50, alpha = 1, figsize = (12,8))
+plt.title('Top Power Hitters (2004-2016)', size = 25)
+plt.xlabel('Home Runs', size = 15)
+plt.ylabel('Runs', size = 15)
+plt.show();
 
 
 
@@ -220,6 +279,21 @@ model2.score(modern_test, modern_runs_test)
 
 
 
+
+
+
+
+### Extra Plots
+fig,ax = plt.subplots(figsize = (12,8))
+
+# Plot the data
+ax.scatter(top_steroid['HR'],top_steroid['R'], label='Data', marker='.', s = 125)
+ax.plot(top_steroid['HR'], top_steroid['AVG_R'], linestyle = ':',color = 'r')
+plt.title('Top Power Hitters (1990-2003)', size = 25)
+plt.xlabel('Home Runs', size = 15)
+plt.ylabel('Runs', size = 15)
+
+plt.show();
 
 
 
