@@ -100,7 +100,7 @@ hover = HoverTool(
 
 # Set Up Plots
 
-### Bokeh
+### Bokeh for Steroid
 plot = figure(plot_width = 800, plot_height = 500, tools = [hover, 'box_zoom', 'pan','reset'], active_drag = 'box_zoom', title = 'Top Power Hitters (1990-2003)')
 plot.circle(x = 'HR', y = 'R', size = 7, source=source)
 
@@ -122,15 +122,26 @@ show(plot);
 
 
 
-### Matplotlib plot
+### Matplotlib Plot for Steroid
 import matplotlib.pyplot as plt
+import matplotlib.style as style
 
+style.use('fivethirtyeight')
 top_steroid.plot(kind = 'scatter', x = 'HR', y = 'R', s= 50, alpha = 1, figsize = (12,8))
-plt.plot(x = 'HR', y = 125)
 plt.title('Top Power Hitters (1990-2003)', size = 25)
 plt.xlabel('Home Runs', size = 15)
 plt.ylabel('Runs', size = 15)
+plt.axhline(y = 140, color = 'red', linewidth = 2, alpha = 0.7)
+plt.axhline(y = 115, color = 'black', linewidth = 1.3, alpha = 0.7)
+
+# The signature bar
+plt.text(x = 0, y = 107,
+    s = '                                                                                                              Source: Sean Lahman\'s Baseball Database   ',
+    fontsize = 14, color = '#f0f0f0', backgroundcolor = 'grey')
+
 plt.show();
+
+
 
 
 
@@ -157,7 +168,7 @@ hover1 = HoverTool(
 
 # Set Up Plots
 
-### Bokeh
+### Bokeh for Modern
 plot1 = figure(plot_width = 800, plot_height = 500, tools = [hover1, 'box_zoom', 'pan','reset'], active_drag = 'box_zoom', title = 'Top Power Hitters (2004-2016)')
 plot1.circle(x = 'HR', y = 'R', size = 7, source=source1)
 
@@ -182,11 +193,20 @@ show(plot1);
 
 
 
-
+### Matplotlib Plot for Modern
+style.use('fivethirtyeight')
 top_modern.plot(kind = 'scatter', x = 'HR', y = 'R', s= 50, alpha = 1, figsize = (12,8))
 plt.title('Top Power Hitters (2004-2016)', size = 25)
 plt.xlabel('Home Runs', size = 15)
 plt.ylabel('Runs', size = 15)
+plt.axhline(y = 140, color = 'red', linewidth = 2, alpha = 0.7)
+plt.axhline(y = 110, color = 'black', linewidth = 1.3, alpha = 0.7)
+
+# The signature bar
+plt.text(x = 0, y = 107,
+    s = '                                                                                                              Source: Sean Lahman\'s Baseball Database   ',
+    fontsize = 14, color = '#f0f0f0', backgroundcolor = 'grey')
+
 plt.show();
 
 
@@ -229,9 +249,11 @@ runs_analysis(modern, stats)
 
 
 
-
+# Bonus: Machine Learning
 from sklearn.model_selection import train_test_split
 from sklearn import linear_model
+
+
 
 
 
@@ -276,24 +298,6 @@ predictions2 = lm2.predict(modern_test)
 
 
 model2.score(modern_test, modern_runs_test)
-
-
-
-
-
-
-
-### Extra Plots
-fig,ax = plt.subplots(figsize = (12,8))
-
-# Plot the data
-ax.scatter(top_steroid['HR'],top_steroid['R'], label='Data', marker='.', s = 125)
-ax.plot(top_steroid['HR'], top_steroid['AVG_R'], linestyle = ':',color = 'r')
-plt.title('Top Power Hitters (1990-2003)', size = 25)
-plt.xlabel('Home Runs', size = 15)
-plt.ylabel('Runs', size = 15)
-
-plt.show();
 
 
 

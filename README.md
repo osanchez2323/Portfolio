@@ -1,6 +1,6 @@
 # Portfolio
 
-Repository containing a series of projects as part of my data analysis / science portfolio.
+Repository containing a series of projects as part of my data science portfolio.
 
 
 
