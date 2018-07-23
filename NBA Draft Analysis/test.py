@@ -13,7 +13,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-seasons = pd.read_csv('C:/Users/osanchez/Downloads/Seasons_Stats.csv')
+seasons = pd.read_csv('Seasons_Stats.csv')
 
 
 
@@ -43,7 +43,7 @@ seasons['Player'] = seasons['Player'].str.replace('*','') ### Remove special cha
 
 
 
-players = pd.read_csv('C:/Users/osanchez/Downloads/player_data.csv')
+players = pd.read_csv('player_data.csv')
 years_draft = list(range(2010,2017))
 players.columns = ['Player', 'Rookie Year', 'Final Year', 'Position', 'Height','Weight','DOB','College']
 players = players[players['Rookie Year'].isin(years_draft)]
@@ -125,51 +125,5 @@ plt.text(x = -0.7, y = 0.1255, s = 'Total Career WS/48 for all NBA players draft
 plt.text(x = -0.71, y = -.012, s = 'National Basketball Association                                                                                       Source: Basketball-Reference.com ', fontsize = 17,color = '#f0f0f0', backgroundcolor = 'grey')
 plt.xticks([],[])
 ax.set_ylabel('WS/48', size = 25)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
