@@ -6,6 +6,7 @@ Repository containing a series of projects as part of my data science portfolio.
 
 ## Projects
 
+- ### [Data Science Takes on Education](https://github.com/osanchez2323/Portfolio/blob/master/Data%20Science%20Takes%20on%20Education/Data%20Science%20Takes%20on%20Education.ipynb) An analysis on public schools in NYC. Data is from [Kaggle](https://www.kaggle.com/passnyc/data-science-for-good)
 - ### [Basketball Analytics - Using Machine Learning to Predict Win Shares](https://towardsdatascience.com/basketball-analytics-predicting-win-shares-533bc1503094)
 A brief machine learning exercise using basketball stats to predict individual win shares of NBA players. Data used for this analysis is from [Basketball Reference](https://www.basketball-reference.com).
 - ### [Baseball Analysis](https://github.com/osanchez2323/Portfolio/blob/master/Baseball%20Analysis/Baseball%20Analysis%20Notebook.ipynb)
