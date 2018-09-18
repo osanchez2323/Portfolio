@@ -1,6 +1,6 @@
 # Portfolio
 
-Repository containing a series of projects as part of my data science portfolio.
+Repository containing a series of projects as part of my data science portfolio. Titles are links to my [blog.](https://medium.com/@osanchez2323)
 
 
 
