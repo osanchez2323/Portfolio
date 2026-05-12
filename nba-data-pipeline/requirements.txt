@@ -1,0 +1,37 @@
+# NBA Data Pipeline — Python dependencies
+
+# Core data processing
+pandas==2.2.1
+numpy==1.26.4
+pyarrow==15.0.2          # Parquet read/write
+
+# API client
+requests==2.31.0
+urllib3==2.2.1
+
+# Google Cloud / BigQuery
+google-cloud-bigquery==3.19.0
+google-cloud-storage==2.16.0
+db-dtypes==1.2.0          # BigQuery <-> pandas type support
+
+# Data validation
+great-expectations==0.18.12
+
+# Orchestration
+apache-airflow==2.9.1
+apache-airflow-providers-google==10.18.0
+
+# Utilities
+python-dotenv==1.0.1      # .env file loading
+tenacity==8.2.3           # Retry logic
+structlog==24.1.0         # Structured logging
+
+# Testing
+pytest==8.1.1
+pytest-cov==5.0.0
+pytest-mock==3.14.0
+responses==0.25.0         # Mock HTTP responses in tests
+
+# Development
+black==24.3.0             # Code formatting
+flake8==7.0.0             # Linting
